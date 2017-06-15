@@ -1,80 +1,80 @@
-#include<stdio.h>
-#include<malloc.h> //°üº¬mallocº¯Êı
-//#include<stdlid.h> //°üº¬exitº¯Êı
-//¶¨ÒåÁËÒ»¸öÊı¾İÀàĞÍ£¬Õâ¸öÊı¾İÀàĞÍÃû×Ö¼Óstruct Arr£¬ÆäÖĞ°üº¬ÁËÈı¸öÊı¾İ
+#include<stdio.h>    
+#include<malloc.h> //åŒ…å«mallocå‡½æ•°
+//#include<stdlid.h> //åŒ…å«exitå‡½æ•°
+//å®šä¹‰äº†ä¸€ä¸ªæ•°æ®ç±»å‹ï¼Œè¿™ä¸ªæ•°æ®ç±»å‹åå­—åŠ struct Arrï¼Œå…¶ä¸­åŒ…å«äº†ä¸‰ä¸ªæ•°æ®
 struct Arr
 {
-	int *pBase; //´æ´¢Êı×éµÄµÚÒ»¸öÔªËØµÄµØÖ·
-	int len;   //Êı×éËùÄÜÈİÄÉµÄ×î´óÔªËØµÄ¸öÊı
-	int cut;   //Êı×éÓĞĞ§ÔªËØµÄ¸öÊı
+	int *pBase; //å­˜å‚¨æ•°ç»„çš„ç¬¬ä¸€ä¸ªå…ƒç´ çš„åœ°å€
+	int len;   //æ•°ç»„æ‰€èƒ½å®¹çº³çš„æœ€å¤§å…ƒç´ çš„ä¸ªæ•°
+	int cut;   //æ•°ç»„æœ‰æ•ˆå…ƒç´ çš„ä¸ªæ•°
 };
 
-void init_arr(struct Arr *pArr,int length); //³õÊ¼»¯
-//³õÊ¼»¯Öµº¯Êıµ÷ÓÃÁËinit¡ªarrÕâ¸öº¯ÊıÖ®ºó£¬*pBaseÖ¸ÏòµÄ¾Í²»ÊÇÒ»¸öÀ¬»øÊı×ÖÁË£¬¶øÊÇÒ»¸öÓĞĞ§µÄÊı×é
-bool append_arr(struct Arr *pArr,int val); //×·¼Ó
-bool insert_arr(struct Arr *pArr,int pos, int val); //²åÈë val²åÈëµÄÖµ
-bool delete_arr(struct Arr *pArr,int pos, int *pVal /*,int * size*/); //É¾³ı *pvalÉ¾³ıµÄÖµ£¬ÀûÓÃÖ¸ÕëÊä³ö
-int get();         //»ñÈ¡ÏÂ±êÎªÄ³Ò»¸öµÄÖµ
-bool is_empty(struct Arr * pArr); //Êı×éÊÇ·ñ¿Õ
-bool is_full(struct Arr * pArr); //ÊÇ·ñÂú
-void sort_arr(struct Arr * pArr); //ÅÅĞò
-void show_arr(struct Arr * pArr); //ÏÔÊ¾
-void inversion_arr(struct Arr *pArr); //µ¹ÖÃ 
+void init_arr(struct Arr *pArr,int length); //åˆå§‹åŒ–
+//åˆå§‹åŒ–å€¼å‡½æ•°è°ƒç”¨äº†initâ€”arrè¿™ä¸ªå‡½æ•°ä¹‹åï¼Œ*pBaseæŒ‡å‘çš„å°±ä¸æ˜¯ä¸€ä¸ªåƒåœ¾æ•°å­—äº†ï¼Œè€Œæ˜¯ä¸€ä¸ªæœ‰æ•ˆçš„æ•°ç»„
+bool append_arr(struct Arr *pArr,int val); //è¿½åŠ 
+bool insert_arr(struct Arr *pArr,int pos, int val); //æ’å…¥ valæ’å…¥çš„å€¼
+bool delete_arr(struct Arr *pArr,int pos, int *pVal /*,int * size*/); //åˆ é™¤ *pvalåˆ é™¤çš„å€¼ï¼Œåˆ©ç”¨æŒ‡é’ˆè¾“å‡º
+int get();         //è·å–ä¸‹æ ‡ä¸ºæŸä¸€ä¸ªçš„å€¼
+bool is_empty(struct Arr * pArr); //æ•°ç»„æ˜¯å¦ç©º
+bool is_full(struct Arr * pArr); //æ˜¯å¦æ»¡
+void sort_arr(struct Arr * pArr); //æ’åº
+void show_arr(struct Arr * pArr); //æ˜¾ç¤º
+void inversion_arr(struct Arr *pArr); //å€’ç½® 
 
 
 int main(void)
 {
-	struct Arr arr;//¸øÊı×é¶¨ÒåÁËÒ»¸ö±äÁ¿¡£Ãû×Ö½Ğ×öarr
+	struct Arr arr;//ç»™æ•°ç»„å®šä¹‰äº†ä¸€ä¸ªå˜é‡ã€‚åå­—å«åšarr
 	int val;
-	init_arr(&arr, 10); //´«ËÍÊ×µØÖ·,¶¨ÒåÊı×é³¤¶È6
-	//show_arr(&arr); //ÏÔÊ¾
+	init_arr(&arr, 10); //ä¼ é€é¦–åœ°å€,å®šä¹‰æ•°ç»„é•¿åº¦6
+	//show_arr(&arr); //æ˜¾ç¤º
 	append_arr(&arr, 1);
 	append_arr(&arr, 2);
 	append_arr(&arr, 3);
 	append_arr(&arr, 4);
 	append_arr(&arr, 5);
 	
-	insert_arr(&arr, 5 , 10);//²åÈë
-	printf("²åÈë³É¹¦");
-	show_arr(&arr); //ÏÔÊ¾
+	insert_arr(&arr, 5 , 10);//æ’å…¥
+	printf("æ’å…¥æˆåŠŸ");
+	show_arr(&arr); //æ˜¾ç¤º
 
-	if (append_arr(&arr, 6))//×·¼Ó
+	if (append_arr(&arr, 6))//è¿½åŠ 
 	{
-	printf("×·¼Ó³É¹¦");
+	printf("è¿½åŠ æˆåŠŸ");
 	}
 	else 
 	{
-	printf("×·¼ÓÊ§°Ü\n");
+	printf("è¿½åŠ å¤±è´¥\n");
 	}
-	show_arr(&arr); //ÏÔÊ¾
+	show_arr(&arr); //æ˜¾ç¤º
 
-	if( delete_arr(&arr, 1, &val) ) //É¾³ı
+	if( delete_arr(&arr, 1, &val) ) //åˆ é™¤
 	{
-		printf("ÄúÉ¾³ıµÄÔªËØÊÇ  %d\n", val);
+		printf("æ‚¨åˆ é™¤çš„å…ƒç´ æ˜¯  %d\n", val);
 	}
 	else 
 	{
-	printf("ÄúÉ¾³ıÊ§°Ü!");
+	printf("æ‚¨åˆ é™¤å¤±è´¥!");
 	}	
-	show_arr(&arr); //ÏÔÊ¾
-	printf("Êı×éµ¹ÖÃºóÎª£º");
-    inversion_arr(&arr);//µ¹ÖÃ
-	show_arr(&arr); //ÏÔÊ¾
-	sort_arr(&arr); //ÅÅĞò
-	show_arr(&arr); //ÏÔÊ¾
+	show_arr(&arr); //æ˜¾ç¤º
+	printf("æ•°ç»„å€’ç½®åä¸ºï¼š");
+    inversion_arr(&arr);//å€’ç½®
+	show_arr(&arr); //æ˜¾ç¤º
+	sort_arr(&arr); //æ’åº
+	show_arr(&arr); //æ˜¾ç¤º
 /*	printf("%d", cut );*/
 /*	printf("%d\n", arr.len );*/
 	return 0;
 }
 
-void init_arr(struct Arr *pArr, int length) //³õÊ¼»¯
+void init_arr(struct Arr *pArr, int length) //åˆå§‹åŒ–
 {
 /*	(*pArr).len  = 99;*/
-	pArr->pBase = (int *)malloc(sizeof(int ) * length);//¶¯Ì¬Êı×é
+	pArr->pBase = (int *)malloc(sizeof(int ) * length);//åŠ¨æ€æ•°ç»„
 	if(NULL == pArr->pBase )
 	{
-		printf("¶¯Ì¬ÄÚ´æ·ÖÅäÊ§°Ü");
-	//	exit(-1);//ÖÕÖ¹³ÌĞò
+		printf("åŠ¨æ€å†…å­˜åˆ†é…å¤±è´¥");
+	//	exit(-1);//ç»ˆæ­¢ç¨‹åº
 	}
 	else
 	{
@@ -84,15 +84,15 @@ void init_arr(struct Arr *pArr, int length) //³õÊ¼»¯
 return ;
 }
 
-bool is_empty(struct Arr *pArr)//ÅĞ¶ÏÊı×éÊÇ·ñÎª¿Õ
+bool is_empty(struct Arr *pArr)//åˆ¤æ–­æ•°ç»„æ˜¯å¦ä¸ºç©º
 {
-	if(0 == pArr->cut )//ÓĞĞ§Êı×ÖÊÇ·ñÎª0£»
+	if(0 == pArr->cut )//æœ‰æ•ˆæ•°å­—æ˜¯å¦ä¸º0ï¼›
 		return true;
 	else
 		return false;
 }
 
-bool is_full(struct Arr *pArr) //ÅĞ¶Ïº¯ÊıÊÇ·ñÂú
+bool is_full(struct Arr *pArr) //åˆ¤æ–­å‡½æ•°æ˜¯å¦æ»¡
 {
 	if(pArr->cut ==pArr->len )
 		return true;
@@ -100,11 +100,11 @@ bool is_full(struct Arr *pArr) //ÅĞ¶Ïº¯ÊıÊÇ·ñÂú
 		return false;
 }
 
-void show_arr(struct Arr * pArr)  //ÏÔÊ¾
+void show_arr(struct Arr * pArr)  //æ˜¾ç¤º
 {
 	if( is_empty(pArr))
 	{
-	printf("Êı×éÎª¿Õ!\n");
+	printf("æ•°ç»„ä¸ºç©º!\n");
 	}
 	else
 	{
@@ -114,24 +114,24 @@ void show_arr(struct Arr * pArr)  //ÏÔÊ¾
 	}
 }
 
-bool append_arr(struct Arr *pArr,int val)//×·¼Ó
+bool append_arr(struct Arr *pArr,int val)//è¿½åŠ 
 {
-	//ÂúÊ±
+	//æ»¡æ—¶
 	if( is_full(pArr))
 		return false;
-	//²»ÂúÊ±×·¼Ó
+	//ä¸æ»¡æ—¶è¿½åŠ 
 	else 
-		pArr->pBase[pArr->cut ] = val;//val×·¼ÓµÄÖµ
+		pArr->pBase[pArr->cut ] = val;//valè¿½åŠ çš„å€¼
 		(pArr->cut)++;//
 		return true;
 }
 
-bool insert_arr(struct Arr *pArr,int pos, int val)//²åÈë
+bool insert_arr(struct Arr *pArr,int pos, int val)//æ’å…¥
 {
 	int i;
-	if (is_full(pArr))//Êı×éÂúÁË
+	if (is_full(pArr))//æ•°ç»„æ»¡äº†
 		return false;
-	if(pos<1 || pos>pArr->len+1)//²åÈëÎ»ÖÃĞ¡ÓÚÒ»£¬ÒÔ¼°²åÈëµÄÎ»ÖÃ´óÓÚÊı×é³¤¶È
+	if(pos<1 || pos>pArr->len+1)//æ’å…¥ä½ç½®å°äºä¸€ï¼Œä»¥åŠæ’å…¥çš„ä½ç½®å¤§äºæ•°ç»„é•¿åº¦
 		return false;
 	for(i = pArr->cut-1; i>=pos-1; --i)
 	{
@@ -142,13 +142,13 @@ bool insert_arr(struct Arr *pArr,int pos, int val)//²åÈë
 	return true;
 }
 
-bool delete_arr(struct Arr *pArr, int pos, int *pVal/*, int * size */) //É¾³ı valÉ¾³ıµÄÖµ
+bool delete_arr(struct Arr *pArr, int pos, int *pVal/*, int * size */) //åˆ é™¤ valåˆ é™¤çš„å€¼
 {
 	int i;
 
-	if(is_empty(pArr))    //Èç¹ûÊı×éÎª¿Õ
+	if(is_empty(pArr))    //å¦‚æœæ•°ç»„ä¸ºç©º
 		return false;
-	if(pos<1 || pos>pArr->cut )//Èç¹ûÉ¾³ıµÄÎ»ÖÃĞ¡ÓÚÒ»£¬»òÕßÉ¾³ıµÄÎ»Êı´óÓÚÓĞĞ§Î»¸öÊı£¬ÔòÊä³ö´íÎó
+	if(pos<1 || pos>pArr->cut )//å¦‚æœåˆ é™¤çš„ä½ç½®å°äºä¸€ï¼Œæˆ–è€…åˆ é™¤çš„ä½æ•°å¤§äºæœ‰æ•ˆä½ä¸ªæ•°ï¼Œåˆ™è¾“å‡ºé”™è¯¯
 		return false;
 	*pVal = pArr->pBase [pos-1];
 	for(i=pos; i <= pArr->cut; ++i)
@@ -157,14 +157,14 @@ bool delete_arr(struct Arr *pArr, int pos, int *pVal/*, int * size */) //É¾³ı va
 	}
 	(pArr->cut )--;
 /*	* size=pArr->cut ;*/
-	printf("ÓĞĞ§Î»ÊıÎª%d\n",pArr->cut );
+	printf("æœ‰æ•ˆä½æ•°ä¸º%d\n",pArr->cut );
 		return true;
 }
 
-void inversion_arr(struct Arr *pArr)  //µ¹ÖÃ
+void inversion_arr(struct Arr *pArr)  //å€’ç½®
 {
 	int i=0,j=pArr->cut-1,t;
-	/*if(is_empty(pArr))    //Èç¹ûÊı×éÎª¿Õ
+	/*if(is_empty(pArr))    //å¦‚æœæ•°ç»„ä¸ºç©º
 		return false;*/
 	while (i < j)
 	{
@@ -177,7 +177,7 @@ void inversion_arr(struct Arr *pArr)  //µ¹ÖÃ
 		return; 
 }
 
-void sort_arr(struct Arr * pArr) //ÅÅĞò
+void sort_arr(struct Arr * pArr) //æ’åº
 {
 	int i,j,t;
 	for(i=0; i<=pArr->cut ; ++i)
@@ -196,7 +196,7 @@ void sort_arr(struct Arr * pArr) //ÅÅĞò
 }
 
 /*
-¶¨Òå£º
-returnÓĞÖÕÖ¹º¯ÊıµÄÖ´ĞĞºÍ´«µİÊıÖµ,
-return trueÊÇ·µ»ØÒ»¸öÕæÖµ.
-return falseÊÇ·µ»ØÒ»¸ö¼ÙÖµ.*/
+å®šä¹‰ï¼š
+returnæœ‰ç»ˆæ­¢å‡½æ•°çš„æ‰§è¡Œå’Œä¼ é€’æ•°å€¼,
+return trueæ˜¯è¿”å›ä¸€ä¸ªçœŸå€¼.
+return falseæ˜¯è¿”å›ä¸€ä¸ªå‡å€¼.*/
